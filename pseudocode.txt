@@ -15,4 +15,10 @@ Pseudocode:
  - check if this is first time in voice chat after 5 pm PST
  - if it is, must move user to the habitJail and deafen them
  - message will ping in #habitJail with user and start time
- - 
+
+
+Bonus:
+ - if other users are curious about how long another user is in jail for, they will
+   put in the command !habitJail {user name}. The bot will put in the number of min
+   the user has in jail
+   
