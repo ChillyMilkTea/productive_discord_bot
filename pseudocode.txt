@@ -1,0 +1,18 @@
+Functionality:
+
+- when I enter a discord call for the first time after 5 pm PST, the habitJailor 
+  will put me in the habitJail voice call and deafen me for 1 hour. This will be 
+  referred to as the "habitJail".
+- once I enter into habitJail, a ping will go off in the #habitJail 
+  chat saying that @user is in the habitJail at starting time
+
+
+
+Pseudocode:
+
+ - user enters voice channel - bot checks if the user is part of the jailed list 
+   (basically anyone that wants to use the jailed functionality)
+ - check if this is first time in voice chat after 5 pm PST
+ - if it is, must move user to the habitJail and deafen them
+ - message will ping in #habitJail with user and start time
+ - 
