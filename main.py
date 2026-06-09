@@ -23,7 +23,6 @@ async def on_ready():
     print(f'Logged in as {bot.user.name}')
 
 
-@bot.event
 async def habitJail(member, before, after):
     """Move members to 'habitJail' if they change voice state after 5pm local time."""
     
@@ -35,19 +34,22 @@ async def habitJail(member, before, after):
             if habit_jail is None:
                 logging.debug("habitJail channel not found in guild %s", member.guild)
                 return
-            # Only attempt move if user isn't already in habit_jail
-            if after.channel is not None and after.channel != habit_jail:
-                await member.move_to(habit_jail)
-                await member.edit(mute=True)
-            # hierarchy check to ensure bot can move the member
+            
+            # Hierarchy check FIRST to ensure bot can move the member
             bot_member = member.guild.me
             if member.top_role >= bot_member.top_role or member.id == bot_member.id:
                 print(f"Cannot moderate {member.name} due to hierarchy rules.")
                 return
             
-            # deafen user in habit_jail <- looks like this code is the issue here, has to do with roles and permissions, I'll need someone to troubleshoot in discord since I'm the admin of the server
-            # if after.channel == habit_jail:
-            #     await member.edit(mute=True)
+            # Check if bot has required permissions
+            if not bot_member.guild_permissions.mute_members:
+                print(f"Bot missing 'Mute Members' permission in guild {member.guild.name}")
+                return
+            
+            # Only attempt move if user isn't already in habit_jail
+            if after.channel is not None and after.channel != habit_jail:
+                await member.move_to(habit_jail)
+                await member.edit(deafen=True)
 
     except Exception:
         logging.exception("Failed to move member %s to habitJail", member)
