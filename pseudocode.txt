@@ -22,3 +22,10 @@ Bonus:
    put in the command !habitJail {user name}. The bot will put in the number of min
    the user has in jail
    
+
+
+Changes in functionality: 
+ - change it into a role where the user cannot actively change voice channels. Because right now the user can change.
+ - Probably just make a role called habitJail and put people in it. Then, have a private voice channel called habitJail 
+   instead of the public channel
+    

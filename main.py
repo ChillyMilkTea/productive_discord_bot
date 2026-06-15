@@ -8,7 +8,7 @@ import asyncio
 
 load_dotenv()
 token = os.getenv('DISCORD_TOKEN')
-VOICE_AFTER_FIVE_HOUR = int(os.getenv('VOICE_AFTER_FIVE_HOUR', '17'))
+VOICE_AFTER_FIVE_HOUR = int(os.getenv('VOICE_AFTER_FIVE_HOUR', '10'))
 VOICE_TIMEZONE = os.getenv('VOICE_AFTER_FIVE_TZ')
 
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
@@ -115,10 +115,10 @@ async def habitJail(member, before, after):
                 await member.move_to(habit_jail)
                 await member.edit(deafen=True)
                 try:
-                    text_channel = discord.utils.get(member.guild.text_channels, name='habitJail')
+                    text_channel = discord.utils.get(member.guild.text_channels, name='habitjail')
                     if text_channel:
                         await text_channel.send(
-                            f"{member.mention} has been moved to habitJail starting at {current_local_time().strftime('%Y-%m-%d %H:%M')}."
+                            f"{member.mention} has been moved to habitJail starting at {current_local_time().strftime('%Y-%m-%d %H:%M')}. They will be undeafened after one hour."
                         )
                     else:
                         logging.debug("habitJail text channel not found in guild %s", member.guild)
